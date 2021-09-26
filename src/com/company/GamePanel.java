@@ -22,8 +22,12 @@ public class GamePanel extends JPanel implements ActionListener{
     boolean running = false;
     Timer timer;
     Random random;
+    int food_color;
+    int snake_color;
 
-    GamePanel(){
+    GamePanel(int snake_color, int food_color){
+        this.food_color = food_color;
+        this.snake_color = snake_color;
         random = new Random();
         this.setPreferredSize(new Dimension(SCREEN_WIDTH,SCREEN_HEIGHT));
         this.setBackground(Color.black);
@@ -50,19 +54,23 @@ public class GamePanel extends JPanel implements ActionListener{
 				g.drawLine(0, i*UNIT_SIZE, SCREEN_WIDTH, i*UNIT_SIZE);
 			}
 			*/
-            g.setColor(Color.red);
+            switch (food_color) {
+                case 1 -> g.setColor(Color.green);
+                case 2 -> g.setColor(Color.blue);
+                case 3 -> g.setColor(Color.white);
+                case 4 -> g.setColor(Color.yellow);
+            }
             g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
 
             for(int i = 0; i< bodyParts;i++) {
-                if(i == 0) {
-                    g.setColor(Color.green);
+                    switch (snake_color) {
+                        case 1 -> g.setColor(Color.green);
+                        case 2 -> g.setColor(Color.blue);
+                        case 3 -> g.setColor(Color.white);
+                        case 4 -> g.setColor(Color.yellow);
+                    }
                     g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
-                }
-                else {
-                    g.setColor(new Color(45,180,0));
-                    //g.setColor(new Color(random.nextInt(255),random.nextInt(255),random.nextInt(255)));
-                    g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
-                }
+
             }
             g.setColor(Color.red);
             g.setFont( new Font("Ink Free",Font.BOLD, 40));
